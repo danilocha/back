@@ -23,7 +23,7 @@ const corsOptions = {
   },
 };
 //CORS habilitar
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use("/", routes());
 
