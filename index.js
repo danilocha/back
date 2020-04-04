@@ -10,7 +10,7 @@ const cors = require("cors");
 const app = express();
 
 //Definir un dominio en especifico
-const whitelist = ["https://heuristic-goldstine-ec1837.netlify.com/"];
+const whitelist = ["https://heuristic-goldstine-ec1837.netlify.com"];
 const corsOptions = {
   origin: (origin, callback) => {
     // revisar si la peticion viene de un servidor que esta en la whitelist
