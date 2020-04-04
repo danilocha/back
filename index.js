@@ -23,8 +23,12 @@ const corsOptions = {
   },
 };
 //CORS habilitar
-app.use(cors());
+// app.use(cors());
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
 app.use("/", routes());
 
 const host = process.env.HOST || "0.0.0.0";
