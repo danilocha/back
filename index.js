@@ -10,7 +10,7 @@ const cors = require("cors");
 const app = express();
 
 //Definir un dominio en especifico
-const whitelist = [process.env.FRONTEND_URL];
+const whitelist = "*";
 const corsOptions = {
   origin: (origin, callback) => {
     // revisar si la peticion viene de un servidor que esta en la whitelist
