@@ -36,5 +36,5 @@ const port = process.env.PORT || 5000;
 
 //puerto
 app.listen(port, host, () => {
-  console.log("el servidor esta funcionando");
+  console.log(`el servidor esta funcionando ${host}/${port}`);
 });
