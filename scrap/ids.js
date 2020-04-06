@@ -18,7 +18,7 @@ const funcion = async () => {
     });
   fs.writeFile(
     "archivo.json",
-    JSON.stringify(datos.reverse().splice(-50)),
+    JSON.stringify(datos.reverse().splice(-30)),
     "utf8",
     (err) => {
       if (err) throw err;
