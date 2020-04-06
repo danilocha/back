@@ -10,7 +10,7 @@ module.exports = () => {
     })
   );
   router.get("/propuestas/:id", propuestasController.mostrarPropuestas);
-  router.get("/ids", propuestasController.idsPropuestas);
+  router.get("/propuestas", propuestasController.idsPropuestas);
 
   return router;
 };
