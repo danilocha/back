@@ -14,7 +14,6 @@ const funcion = async () => {
       );
 
       await setTimeout(async () => {
-        const arregloFinal = [];
         const data = await page.evaluate(async () => {
           //Analisis de la seccion General Information
           const $detallesIzq = document.querySelectorAll(
@@ -75,15 +74,89 @@ const funcion = async () => {
             });
           });
 
+          //pestaña documentos
+          const $detallesDocs = document.querySelectorAll(
+            "#relatedDocumentsTable > table > tbody > tr.gridtitlerow"
+          );
+          const docs = [];
+          if ($detallesDocs) {
+            await $detallesDocs.forEach(($detalle) => {
+              const idD = document.links;
+              docs.push({
+                fileDescription: $detalle
+                  .querySelector(
+                    "#relatedDocumentsTable > table > tbody > tr.gridtitlerow > td:nth-child(1)"
+                  )
+                  .textContent.trim(),
+                nombre: $detalle
+                  .querySelector(
+                    "#relatedDocumentsTable > table > tbody > tr.gridtitlerow > td.search-custom > a"
+                  )
+                  .textContent.trim(),
+                idDoc: $detalle
+                  .querySelector(
+                    "#relatedDocumentsTable > table > tbody > tr.gridtitlerow > td.search-custom > a"
+                  )
+                  .getAttribute("href"),
+                ultimaActualizacion: $detalle
+                  .querySelector(
+                    "#relatedDocumentsTable > table > tbody > tr.gridtitlerow > td:nth-child(3)"
+                  )
+                  .textContent.trim(),
+                fileSize: $detalle
+                  .querySelector(
+                    "#relatedDocumentsTable > table > tbody > tr.gridtitlerow > td:nth-child(4)"
+                  )
+                  .textContent.trim(),
+              });
+            });
+          }
+          const $detallesDocs2 = document.querySelectorAll(
+            "#relatedDocumentsTable > table > tbody > tr.gridevenrow"
+          );
+          if ($detallesDocs2) {
+            await $detallesDocs2.forEach(($detalle) => {
+              docs.push({
+                fileDescription: $detalle
+                  .querySelector(
+                    "#relatedDocumentsTable > table > tbody > tr.gridevenrow > td:nth-child(1)"
+                  )
+                  .textContent.trim(),
+                nombre: $detalle
+                  .querySelector(
+                    "#relatedDocumentsTable > table > tbody > tr.gridevenrow > td.search-custom > a"
+                  )
+                  .textContent.trim(),
+                idDoc: $detalle
+                  .querySelector(
+                    "#relatedDocumentsTable > table > tbody > tr.gridevenrow > td.search-custom > a"
+                  )
+                  .getAttribute("href"),
+                ultimaActualizacion: $detalle
+                  .querySelector(
+                    "#relatedDocumentsTable > table > tbody > tr.gridevenrow > td:nth-child(3)"
+                  )
+                  .textContent.trim(),
+                fileSize: $detalle
+                  .querySelector(
+                    "#relatedDocumentsTable > table > tbody > tr.gridevenrow > td:nth-child(4)"
+                  )
+                  .textContent.trim(),
+              });
+            });
+          }
+
           return {
+            docs,
             generalInfo: data,
             elegibility,
             additionalInformation,
           };
         });
+
         //Trae el json actual
         const documento = require("./oportunidades.json");
-        console.log(documento);
+
         // el nuevo objeto
         const nombre = [{ id, data }];
         // agrega el nuevo objeto al arreglo
